@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 use App\Post;
+use App\Category;
 use Illuminate\Support\Str;
 
 class PostSeeder extends Seeder
@@ -17,9 +18,8 @@ class PostSeeder extends Seeder
         for ($i = 0; $i < 10; $i++) {
             $new_post = new Post();
             $new_post->title = $faker->sentence(rand(4,10));
-            $new_post->text = $faker->text(rand(100,200));
+            $new_post->text = $faker->text(rand(1000,2000));
 
-            //da provare
             $slug = Str::slug($new_post->title,'-');
             $slug_base = $slug;
             $post_presente = Post::where('slug',$slug)->first();
@@ -32,7 +32,10 @@ class PostSeeder extends Seeder
             $new_post->slug = $slug;
 
             $new_post->user_id = 1;
-            //fine parte da provare
+
+
+            $categories_ids = Category::all()->modelKeys();
+            $new_post->category_id = $faker->randomElement($categories_ids); //devo comunuqe lanciare prima il seed categorie
 
             $new_post->save();
         }

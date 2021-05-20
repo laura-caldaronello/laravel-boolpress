@@ -84,6 +84,10 @@
                     Laravel
                 </div>
 
+                <h2 class="m-b-md">
+                    <a href="{{route('posts-homepage')}}">Posts</a>
+                </h2>
+
                 <div class="links">
                     <a href="https://laravel.com/docs">Docs</a>
                     <a href="https://laracasts.com">Laracasts</a>
