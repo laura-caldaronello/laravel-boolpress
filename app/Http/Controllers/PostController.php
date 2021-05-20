@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Post;
-use App\User;
 
 class PostController extends Controller
 {
@@ -21,11 +20,9 @@ class PostController extends Controller
         if (!$post) {
             abort(404);
         };
-        $user = User::find($post->user_id);
 
         $data = [
-            'post' => $post,
-            'user' => $user
+            'post' => $post
         ];
 
         return view('guest.posts.show',$data);
