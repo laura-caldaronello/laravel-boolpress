@@ -16,6 +16,12 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', 'HomeController@index')->name('guest-homepage');
 
+Route::prefix('posts')
+    ->group(function () {
+        Route::get('/', 'PostController@index')->name('posts-homepage');
+        Route::get('/{slug}', 'PostController@show')->name('posts.show');
+    });
+
 Auth::routes();
 
 Route::prefix('admin')

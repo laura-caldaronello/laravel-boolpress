@@ -18,7 +18,22 @@ class PostSeeder extends Seeder
             $new_post = new Post();
             $new_post->title = $faker->sentence(rand(4,10));
             $new_post->text = $faker->text(rand(100,200));
-            $new_post->slug = Str::slug($new_post->title,'-');
+
+            //da provare
+            $slug = Str::slug($new_post->title,'-');
+            $slug_base = $slug;
+            $post_presente = Post::where('slug',$slug)->first();
+            $contatore = 1;
+            while ($post_presente) {
+                $slug = $slug_base . '-' . $contatore;
+                $contatore++;
+                $post_presente = Post::where('slug',$slug)->first();
+            }
+            $new_post->slug = $slug;
+
+            $new_post->user_id = 1;
+            //fine parte da provare
+
             $new_post->save();
         }
     }
