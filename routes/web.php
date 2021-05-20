@@ -22,6 +22,12 @@ Route::prefix('posts')
         Route::get('/{slug}', 'PostController@show')->name('posts.show');
     });
 
+Route::prefix('categories')
+->group(function () {
+    Route::get('/', 'CategoryController@index')->name('categories-homepage');
+    Route::get('/{slug}', 'CategoryController@show')->name('categories.show');
+});
+
 Auth::routes();
 
 Route::prefix('admin')

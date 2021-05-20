@@ -86,6 +86,7 @@
 
                 <h2 class="m-b-md">
                     <a href="{{route('posts-homepage')}}">Posts</a>
+                    <a href="{{route('categories-homepage')}}">Categories</a>
                 </h2>
 
                 <div class="links">

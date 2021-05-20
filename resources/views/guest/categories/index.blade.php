@@ -4,10 +4,12 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12">
-                <h2>Lista Post</h2>
-                @foreach ($posts as $post)
+                <h2>Categorie</h2>
+                @foreach ($categories as $category)
                     <div>
-                        <a href="{{route('posts.show',['slug' => $post->slug])}}">{{$post->title}}</a>
+                        <h4>
+                            <a href="{{route('categories.show',['slug' => $category->slug])}}">{{$category->name}}</a>
+                        </h4>
                     </div>
                 @endforeach
             </div>
