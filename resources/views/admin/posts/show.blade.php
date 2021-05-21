@@ -29,11 +29,11 @@
                 <dd>{{ $post->category ? $post->category->name : '-' }}</dd>
                 <dt>Tag</dt>
                 <dd>
-                    {{-- @forelse ($post->tags as $tag)
+                    @forelse ($post->tags as $tag)
                         {{ $tag->name }}{{ !$loop->last ? ',' : '' }}
                     @empty
                         -
-                    @endforelse --}}
+                    @endforelse
                 </dd>
             </dl>
             <a href="{{ route('posts.edit', ['post' => $post->id]) }}"

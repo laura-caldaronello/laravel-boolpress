@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Tag;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -28,10 +30,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Category $categories)
+    public function create()
     {
         $data = [
-            'categories' => Category::all()
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ];
         return view('admin.posts.create',$data);
     }
@@ -47,7 +50,7 @@ class PostController extends Controller
         $data = $request->all();
         $new_post = new Post();
         $new_post->fill($data);
-        
+
         $slug = Str::slug($new_post->title,'-');
         $slug_base = $slug;
         $post_presente = Post::where('slug',$slug)->first();
@@ -59,7 +62,16 @@ class PostController extends Controller
         }
         $new_post->slug = $slug;
         
+        $new_post->user_id = Auth::id();
         $new_post->save();
+
+        if (array_key_exists('tags',$data)) {
+            $new_post->tags()->sync($data['tags']);
+        }
+        else {
+            $new_post->tags()->sync([]);
+        }
+
 
         return redirect()->route('posts.index');
     }
@@ -87,7 +99,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $data = [
-            'post' => $post
+            'post' => $post,
+            'categories' => Category::all(),
+            'tags' => Tag::all()
         ];
         return view('admin.posts.edit',$data);
     }
@@ -116,6 +130,13 @@ class PostController extends Controller
 
         $post->update($data);
 
+        if (array_key_exists('tags',$data)) {
+            $post->tags()->sync($data['tags']);
+        }
+        else {
+            $post->tags()->sync([]);
+        }
+
         return redirect()->route('posts.index');
     }
 
@@ -127,6 +148,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->sync([]);
+
         $post->delete();
 
         return redirect()->route('posts.index');
