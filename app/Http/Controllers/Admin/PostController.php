@@ -60,7 +60,7 @@ class PostController extends Controller
         $new_post->slug = $slug;
         
         $new_post->save();
-        
+
         return redirect()->route('posts.index');
     }
 
@@ -70,9 +70,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        $data = [
+            'post' => $post
+        ];
+        return view('admin.posts.show',$data);
     }
 
     /**
@@ -122,8 +125,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('posts.index');
     }
 }
