@@ -7,7 +7,7 @@
                 <h2>Categoria: {{$category->name}}</h2>
                 @foreach ($category->post as $post)
                     <h4>
-                        <a href="{{route('posts.show',['slug' => $post->slug])}}">{{$post->title}}</a>
+                        <a href="{{route('posts.show',$post)}}">{{$post->title}}</a>
                     </h4>
                 @endforeach
             </div>

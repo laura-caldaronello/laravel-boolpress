@@ -7,7 +7,7 @@
                 <h2>Lista Post</h2>
                 @foreach ($posts as $post)
                     <div>
-                        <a href="{{route('posts.show',['slug' => $post->slug])}}">{{$post->title}}</a>
+                        <a href="{{route('posts.show',$post)}}">{{$post->title}}</a>
                     </div>
                 @endforeach
             </div>
