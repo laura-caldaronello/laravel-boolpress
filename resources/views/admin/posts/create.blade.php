@@ -31,6 +31,10 @@
                     @enderror
                 </div>
                 <div class="form-group">
+                    <label>immagine di copertina</label>
+                    <input type="file" class="form-control-file" name="image" id="">
+                </div>
+                <div class="form-group">
                     <label>Contenuto</label>
                     <textarea name="text" class="form-control @error('text') is-invalid @enderror" rows="10" placeholder="Inizia a scrivere qualcosa..." required>{{-- {{ old('text') }} --}}</textarea>
                     @error('text')

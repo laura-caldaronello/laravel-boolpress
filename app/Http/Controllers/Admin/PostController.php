@@ -9,6 +9,7 @@ use App\Category;
 use App\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -48,6 +49,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $data = $request->all();
+
         $new_post = new Post();
         $new_post->fill($data);
 
@@ -63,6 +65,13 @@ class PostController extends Controller
         $new_post->slug = $slug;
         
         $new_post->user_id = Auth::id();
+
+        if (array_key_exists('image',$data)) {
+            $image_path = Storage::put('post_images',$data['image']);
+            $data['image'] = $image_path;
+        }
+        $new_post->image = $data['image'];
+
         $new_post->save();
 
         if (array_key_exists('tags',$data)) {
@@ -71,7 +80,6 @@ class PostController extends Controller
         else {
             $new_post->tags()->sync([]);
         }
-
 
         return redirect()->route('posts.index');
     }

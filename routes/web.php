@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', 'HomeController@index')->name('guest-homepage');
+Route::get('/contatti','HomeController@contatti')->name('contatti');
+Route::post('/contatti','HomeController@contattiSent')->name('contatti.sent');
+
 
 Route::prefix('posts')
     ->group(function () {

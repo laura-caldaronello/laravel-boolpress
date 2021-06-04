@@ -31,6 +31,18 @@
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
+
+                <div class="form-group">
+                    @if ($post->image)
+                        <p>immagine copertina presente</p>
+                        <img src="{{asset('storage/' . $post->image)}}">
+                    @else
+                        <p>immagine non presente</p>
+                    @endif
+
+                    <label>immagine di copertina</label>
+                    <input type="file" class="form-control-file" name="image" id="">
+                </div>
                
                 <div class="form-group">
                     <label>Contenuto</label>
